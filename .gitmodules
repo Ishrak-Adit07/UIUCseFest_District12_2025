@@ -1,0 +1,3 @@
+[submodule "auth_service"]
+	path = auth_service
+	url = https://github.com/aar-rafi/tick12_auth_service
