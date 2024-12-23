@@ -10,3 +10,6 @@
 [submodule "train_service"]
 	path = train_service
 	url = https://github.com/aar-rafi/tick12_train_service
+[submodule "cache_service"]
+	path = cache_service
+	url = https://github.com/irtiaz/tick12_cache_service
