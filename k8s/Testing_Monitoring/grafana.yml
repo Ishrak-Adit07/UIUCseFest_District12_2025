@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: "gf_password"
+            - name: GF_SMTP_ENABLED
+              value: "true"
+            - name: GF_SMTP_HOST
+              value: "smtp.gmail.com:587" # Replace with your SMTP server and port
+            - name: GF_SMTP_USER
+              value: "irtiazkabir.irtiaz@gmail.com" # Replace with your SMTP username
+            - name: GF_SMTP_PASSWORD
+              value: "rxnb seyw vmno pynn" # Replace with your SMTP password
+            - name: GF_SMTP_FROM_ADDRESS
+              value: "irtiazkabir.irtiaz@gmail.com" # Replace with the email address you want to send from
+            - name: GF_SMTP_FROM_NAME
+              value: "Grafana"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: grafana

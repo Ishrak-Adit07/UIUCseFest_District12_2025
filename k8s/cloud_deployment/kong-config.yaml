@@ -1,0 +1,43 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: tick12-auth-ingress-config
+upstream:
+  hash_on: header
+  hash_fallback: cookie
+  
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: tick12-ticket-ingress-config
+upstream:
+  hash_on: header
+  hash_fallback: cookie
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: tick12-price-ingress-config
+upstream:
+  hash_on: header
+  hash_fallback: cookie
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: tick12-cache-ingress-config
+upstream:
+  hash_on: header
+  hash_fallback: cookie
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: tick12-trainjs-ingress-config
+upstream:
+  hash_on: header
+  hash_fallback: cookie

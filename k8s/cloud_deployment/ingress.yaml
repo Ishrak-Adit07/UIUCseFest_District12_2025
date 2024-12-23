@@ -1,0 +1,78 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bcf-ingress
+  annotations:
+    konghq.com/strip-path: "true"
+    konghq.com/protocols: http,https
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    konghq.com/override: tick12-auth-ingress-config,tick12-ticket-ingress-config,tick12-price-ingress-config,tick12-cache-ingress-config
+spec:
+  ingressClassName: kong
+  tls:
+    - hosts:
+        - bcf.district12.xyz
+        - services.district12.xyz
+      secretName: services-district12-tls
+  rules:
+    - host: services.district12.xyz
+      http:
+        paths:
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-auth-service
+                port:
+                  number: 8000
+
+          - path: /ticket
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-ticket-service
+                port:
+                  number: 8001
+
+          - path: /price
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-price-service
+                port:
+                  number: 8002
+
+          - path: /train
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-train-service
+                port:
+                  number: 8003
+
+          - path: /trainjs
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-trainjs-service
+                port:
+                  number: 8004
+
+          - path: /cache
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-cache-service
+                port:
+                  number: 8005    
+
+    - host: bcf.district12.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tick12-web-service
+                port:
+                  number: 5173
