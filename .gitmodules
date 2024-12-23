@@ -1,3 +1,6 @@
 [submodule "auth_service"]
 	path = auth_service
 	url = https://github.com/aar-rafi/tick12_auth_service
+[submodule "ticket_service"]
+	path = ticket_service
+	url = https://github.com/aar-rafi/tick12_ticket_service
