@@ -7,3 +7,6 @@
 [submodule "pricing_service"]
 	path = pricing_service
 	url = https://github.com/aar-rafi/tick12_ticket_pricing_service
+[submodule "train_service"]
+	path = train_service
+	url = https://github.com/aar-rafi/tick12_train_service
