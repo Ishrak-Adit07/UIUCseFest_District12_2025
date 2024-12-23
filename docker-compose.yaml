@@ -1,0 +1,38 @@
+services:          
+  cache-service:
+    depends_on:
+      redis:
+        condition: service_started
+    build: ./cache_service
+    ports: 
+      - 8005:8005
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - dfsa-network
+    develop:
+      watch:
+        - path: ./cache_service/package.json
+          action: rebuild
+        - path: ./cache_service/package-lock.json
+          action: rebuild
+        - path: ./cache_service
+          target: /app
+          action: sync
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      - dfsa-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  dfsa-network:
+    driver: bridge
